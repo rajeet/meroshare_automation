@@ -1,12 +1,5 @@
 {
-  "name": "meroshare_automation",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:rajeet/meroshare_automation.git",
-  "author": "rajeet <rajeet>",
-  "license": "MIT",
-  "devDependencies": {
-    "@playwright/test": "^1.30.0"
-  },
-  "scripts": {}
+  "dependencies": {
+    "cypress": "^12.7.0"
+  }
 }
