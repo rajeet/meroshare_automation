@@ -1,0 +1,11 @@
+[{
+    "username": "123123",
+    "password": "Admin@123",
+    "dp": "NIC ASIA",
+    "shareToBuy": "Share Name",
+    "bankName":"Bank Name",
+    "kitta": 10,
+    "crn":"test001",
+    "transactionPin": 1234
+    
+}]
