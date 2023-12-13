@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
@@ -6,8 +7,6 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     baseUrl:"https://meroshare.cdsc.com.np/", 
-    env:{
-      
-    },
+    env:{...process.env},
   },
 });

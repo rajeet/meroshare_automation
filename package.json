@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "cypress": "^12.7.0"
+    "cypress": "^12.7.0",
+    "dotenv": "^16.3.1"
+  },
+  "scripts": {
+    "cypress:run": "cypress run"
   }
 }
