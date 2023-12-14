@@ -7,7 +7,6 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     baseUrl:"https://meroshare.cdsc.com.np/", 
-    projectId: "7mq8wz",
     env:{...process.env},
   },
 });

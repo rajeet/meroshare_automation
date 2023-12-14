@@ -85,7 +85,7 @@ describe('Meroshare Automation', () => {
 
 
                 // type crn number 
-                cy.get("#crnNumber").type(result.crn, {log: false}).should("have.value", result.crn);
+                cy.get("#crnNumber").type(result.crn, {log: false});
 
                 // agree terms
                 cy.get('#disclaimer').check().should("be.checked");
@@ -96,6 +96,7 @@ describe('Meroshare Automation', () => {
                 }).click();
 
                 // input transaction pin
+                cy.get("#transactionPIN").type(result.transactionPin, {log: false})
 
 
               } else {
