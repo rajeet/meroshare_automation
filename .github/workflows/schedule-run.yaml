@@ -1,15 +1,17 @@
-name: Meroshare run 
-on:
-    schedule:
-      - cron: '0 9 * * *'
+name: Meroshare automation
+on: push
 jobs:
-    cypress-run:
-        name: Meroshare run
-        runs-on: ubuntu-22.04
-        steps:
-            - name: Checkout
-            uses: actions/checkout@v4
-            - name: Cypress run
-            uses: cypress-io/github-action@v6
-            with:
-                record: false
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use .env files
+        env:
+            ENV_FILE: ${{ secrets.ENV }}
+        run: |
+            echo "$ENV_FILE" > .env
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
