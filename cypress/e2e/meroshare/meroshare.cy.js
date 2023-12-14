@@ -38,6 +38,10 @@ describe('Meroshare Automation', () => {
         url: "https://webbackend.cdsc.com.np/api/meroShare/active/**"
       }).as("active");
 
+      cy.intercept({
+        url:"https://webbackend.cdsc.com.np/api/meroShare/applicantForm/share/apply"
+      }).as('apply_share');
+
       // intercept end.
 
       console.log(result);
@@ -97,7 +101,11 @@ describe('Meroshare Automation', () => {
 
                 // input transaction pin
                 cy.get("#transactionPIN").type(result.transactionPin, {log: false})
+                cy.get("button").contains("Apply").click();
 
+                cy.wait('@apply_share').then((resp)=>{
+                  expect(resp.response.statusCode).to.be.eq(200);
+                })
 
               } else {
                 console.log("not ready to buy");
