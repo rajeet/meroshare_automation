@@ -4,6 +4,7 @@
     "dotenv": "^16.3.1"
   },
   "scripts": {
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
   }
 }

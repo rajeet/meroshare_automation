@@ -1,6 +1,6 @@
 describe('Meroshare Automation', () => {
   const result = {
-    username: Cypress.env('USERNAME'),
+    username: Cypress.env('USER_NAME'),
     password: Cypress.env('PASSWORD'),
     dp: Cypress.env('DP'),
     maximum_share_price: Cypress.env('MAX_IPO_PRICE'),
@@ -10,7 +10,7 @@ describe('Meroshare Automation', () => {
     bankName: Cypress.env("BANK_NAME")
   }
   describe('Meroshare automation', () => {
-    it.only('Apply for share', () => {
+    it('Apply for share', () => {
       // intercept the request for check
       cy.intercept("POST", "https://webbackend.cdsc.com.np/api/meroShare/companyShare/applicableIssue/", 
       // {
@@ -40,11 +40,12 @@ describe('Meroshare Automation', () => {
 
       // intercept end.
 
-
+      console.log(result);
 
       cy.visit('/');
+      // username and password input
       cy.get('#password').clear().type(result.password, {log:false})
-      cy.get('#username').clear().type(result.username, {log:false})
+      cy.get('#username').clear().type(result.username).should('have.value', result.username)
 
       // select the DP
       cy.get("#selectBranch").click();
