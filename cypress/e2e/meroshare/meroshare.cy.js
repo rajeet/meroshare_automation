@@ -104,7 +104,7 @@ describe('Meroshare Automation', () => {
                 cy.get("button").contains("Apply").click();
 
                 cy.wait('@apply_share').then((resp)=>{
-                  expect(resp.response.statusCode).to.be.eq(200);
+                  expect(resp.response.statusCode).to.be.eq(201);
                 })
 
               } else {
