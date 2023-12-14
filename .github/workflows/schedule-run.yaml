@@ -9,14 +9,15 @@ jobs:
       - name: Use .env files
         env:
             ENV_FILE: ${{ secrets.ENV }}
-            CYPRESS_PROJECT_ID: ${{ secrets.PROJECT_ID }}
-            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
             echo "$ENV_FILE" > .env
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        env:
+            CYPRESS_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             
