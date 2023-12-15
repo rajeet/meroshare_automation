@@ -23,3 +23,21 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add("login", (password, username, dp) =>{
+    // username and password input
+    cy.get('#password').clear().type(password, {
+        log: false
+      })
+      cy.get('#username').clear().type(username).should('have.value', username)
+
+      // select the DP
+      cy.get("#selectBranch").click();
+      cy.get('ul li').contains(dp, {
+        matchCase: false
+      }).click();
+
+      // click login button 
+      cy.get('button').contains("Login").click();
+})
