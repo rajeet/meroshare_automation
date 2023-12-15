@@ -1,7 +1,7 @@
 name: Meroshare automation
 on:
     schedule:
-        - cron: "37 4 * * *"
+        - cron: "40 4 * * *"
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
