@@ -1,4 +1,4 @@
-# MeroShare IPO Automation using Cypress
+# MeroShare IPO Automation
 
 This project automates the process of applying for Initial Public Offerings (IPOs) of stocks on the MeroShare web application using Cypress, a powerful automation framework. The automation is configured to run daily through GitHub Actions, checking for new IPOs and applying automatically if any are available.
 
