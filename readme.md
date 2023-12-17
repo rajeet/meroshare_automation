@@ -65,4 +65,5 @@ npm run cypress:run
    - `BANK_NAME` = Your Bank Name (You can leave this empty if the bank name is empty)
    - `KITTA` = Minimum kitta to apply  
 
-
+### Automation in Action
+![Demo]("./../demo.gif)
