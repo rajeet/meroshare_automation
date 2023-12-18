@@ -39,7 +39,7 @@ This project automates the process of applying for Initial Public Offerings (IPO
     - `DP` =   Your Depository Participants (DP) Name
     - `TRANSACTION_PIN` = Your Transaction PIN
     - `CRN` = Your CRN Number 
-    - `MAX_IPO_PRICE` = Minimum IPO Price. (If IPO price is more than this price then the IPO wont be applied.)         
+    - `MAX_IPO_PRICE` = Maximum IPO Price. (If IPO price is more than this price then the IPO wont be applied.)         
     - `BANK_NAME` = Your Bank Name (You can leave this empty if the bank name is empty)
     - `KITTA` = Minimum kitta to apply  
    ```
