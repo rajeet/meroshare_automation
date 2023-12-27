@@ -1,7 +1,12 @@
 name: Meroshare automation
 on:
+    push:
+      branches: ["main"]
+    pull_request:
+      branches: ["main"]
     schedule:
         - cron: "0 5 * * *"
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
