@@ -66,4 +66,4 @@ npm run cypress:run
    - `KITTA` = Minimum kitta to apply  
 
 ### Automation in Action
-![Demo]("./../demo.gif)
+![Demo]("./../demo.gif).
