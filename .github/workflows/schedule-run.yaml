@@ -1,26 +1,104 @@
-name: Meroshare automation
+name: Meroshare IPO Automation
+
 on:
-    push:
-      branches: ["main"]
-    pull_request:
-      branches: ["main"]
-    schedule:
-        - cron: "0 5 * * *"
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "0 6 * * *"  # Runs daily at 11:45 AM NPT; 6:00 AM UTC
+  workflow_dispatch:  # Allows manual runs
 
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        env: ["KESH", "ABHI"]  # Hardcoded environments
+
     steps:
+      # Step 1: Checkout code
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Use .env files
+
+      # Step 2: Read .env and set up the environment
+      - name: Setup environment for ${{ matrix.env }}
         env:
-            ENV_FILE: ${{ secrets.ENV }}
+          ENV_FILE: ${{ secrets[matrix.env] }}
         run: |
-            echo "$ENV_FILE" > .env
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
+          echo "$ENV_FILE" > .env
+          echo "Environment for ${{ matrix.env }} configured."
+          cat .env
+
+      # Step 3: Run Cypress
+      - name: Cypress run for ${{ matrix.env }}
         uses: cypress-io/github-action@v6
 
-            
+      # Step 4: Upload artifacts (videos)
+      - name: Upload Cypress videos for ${{ matrix.env }}
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos-${{ matrix.env }}
+          path: cypress/videos
+          retention-days: 30
+
+      # Step 5: Notify Telegram
+      - name: Notify Telegram
+        if: always()
+        run: |
+          # Extract specific variables from .env and trim spaces
+          TELEGRAM_TOKEN=$(grep '^TELEGRAM_TOKEN' .env | cut -d '=' -f2 | tr -d '"' | xargs)
+          TELEGRAM_CHAT_ID=$(grep '^TELEGRAM_CHAT_ID' .env | cut -d '=' -f2 | tr -d '"' | xargs)
+
+          # echo "Extracted TELEGRAM_TOKEN: '${TELEGRAM_TOKEN}'"
+          # echo "Extracted TELEGRAM_CHAT_ID: '${TELEGRAM_CHAT_ID}'"
+
+          STATUS="Success"
+          EMOJI="✅"
+          if [ "${{ job.status }}" != "success" ]; then
+            STATUS="Failed"
+            EMOJI="❌"
+          fi
+
+          # Notify CI status
+          # MESSAGE="$EMOJI GitHub Actions CI Workflow: $STATUS for ${{ matrix.env }}\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nTriggered By: ${{ github.actor }}"
+          
+          MESSAGE="$STATUS for ${{ matrix.env }} $EMOJI"
+          curl -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+              -H "Content-Type: application/json" \
+              -d "{\"chat_id\": \"$TELEGRAM_CHAT_ID\", \"text\": \"$MESSAGE\"}"
+
+          # Post videos to Telegram
+          VIDEOS=$(find cypress/videos -type f)
+          if [ -z "$VIDEOS" ]; then
+            echo "No videos found. Skipping upload."
+          else
+            for video in $VIDEOS; do
+              if [ -f "$video" ]; then
+                echo "Uploading video: $video"
+                curl -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument" \
+                    -F "chat_id=$TELEGRAM_CHAT_ID" \
+                    -F "document=@$video"
+              else
+                echo "File not found: $video"
+              fi
+            done
+          fi
+
+          # Post screenshots to Telegram
+          # SCREENSHOTS=$(find cypress/screenshots -type f)
+          # if [ -z "$SCREENSHOTS" ]; then
+          #   echo "No screenshots found. Skipping upload."
+          # else
+          #   for screenshot in $SCREENSHOTS; do
+          #     if [ -f "$screenshot" ]; then
+          #       echo "Uploading screenshot: $screenshot"
+          #       curl -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument" \
+          #           -F "chat_id=$TELEGRAM_CHAT_ID" \
+          #           -F "document=@$screenshot"
+          #     else
+          #       echo "File not found: $screenshot"
+          #     fi
+          #   done
+          # fi

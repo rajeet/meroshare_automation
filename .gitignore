@@ -29,3 +29,4 @@ cypress/videos
 cypress/screenshots
 js/*.js
 .env
+.env.*
