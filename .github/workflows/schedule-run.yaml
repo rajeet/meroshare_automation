@@ -28,7 +28,6 @@ jobs:
         run: |
           echo "$ENV_FILE" > .env
           echo "Environment for ${{ matrix.env }} configured."
-          cat .env
 
       # Step 3: Run Cypress
       - name: Cypress run for ${{ matrix.env }}
