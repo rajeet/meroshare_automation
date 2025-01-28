@@ -83,4 +83,4 @@ The automation is configured to run through GitHub Actions. It supports multiple
   - Uses emojis for better visibility (✅ for success, ❌ for failure)
 
 ### Automation in Action
-![Demo]("./../demo.gif")
+![Demo]("./../demo.gif).
