@@ -72,6 +72,8 @@ The automation is configured to run through GitHub Actions. It supports multiple
    - Upload test videos as artifacts
    - Send status notifications and videos to Telegram
 
+3. **Important:** If you modify or add environment variables, ensure you also update the [schedule-run.yaml](.github/workflows/schedule-run.yaml) file to properly handle them.
+
 ### Features of GitHub Actions Workflow
 
 - **Multiple User Support:** Runs tests for multiple users in parallel
@@ -83,4 +85,4 @@ The automation is configured to run through GitHub Actions. It supports multiple
   - Uses emojis for better visibility (✅ for success, ❌ for failure)
 
 ### Automation in Action
-![Demo]("./../demo.gif).
+![Demo]("./../demo.gif").
