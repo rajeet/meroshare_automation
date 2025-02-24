@@ -109,6 +109,14 @@ describe('Meroshare Automation', () => {
           cy.get("#selectBank").select(result.bankName, {matchCase: false}).should('contain.text', result.bankName);
         }
 
+        // Wait for account number dropdown to be visible and select the second option
+        cy.get('#accountNumber').should('be.visible')
+          .find('option')
+          .eq(1) // This selects the second option (index 1)
+          .then($option => {
+            cy.get('#accountNumber').select($option.val());
+          });
+
         // select kitta
         cy.get('#appliedKitta').type(result.kitta).should("have.value", result.kitta);
 
