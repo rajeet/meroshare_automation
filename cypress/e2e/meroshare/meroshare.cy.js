@@ -106,7 +106,7 @@ describe('Meroshare Automation', () => {
         if (result.bankName == "" || !result.bankName) {
           cy.get("#selectBank").select(1);
         } else {
-          cy.get("#selectBank").select(result.bankName, {matchCase: false}).should('contain.text', result.bankName);
+          cy.get("#selectBank").select(result.bankName.toUpperCase(), {matchCase: false}).should('contain.text', result.bankName.toUpperCase());
         }
 
         // Wait for account number dropdown to be visible and select the second option
