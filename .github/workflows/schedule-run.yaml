@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        env: ["RAJEETMANGRATI"]  # Hardcoded environments
+        env: ["RAJEETMANGRATI", "BISHALKARKI", "RUMAKARKIBISHALWIFE", "SAMIKSHYAKARKI"]  # Hardcoded environments
 
     steps:
       # Step 1: Checkout code
