@@ -28,6 +28,7 @@ This project automates the process of applying for Initial Public Offerings (IPO
 
 2. Install dependencies:
 
+
     ```bash
     npm install
     ```
