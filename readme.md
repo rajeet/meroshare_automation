@@ -11,8 +11,6 @@ This project automates the process of applying for Initial Public Offerings (IPO
 
 ## Setup
 
-
-
 ### Running Locally
 
 ### Prerequisites
